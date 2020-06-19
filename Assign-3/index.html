@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar - Speed coding, Neat Developer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="all.css">
+<script>
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  var user=getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+     user = prompt("Please enter your name:","");
+     if (user != "" && user != null) {
+       setCookie("username", user, 30);
+     }
+  }
+}
+</script>
+</head>
+
+<body onload="checkCookie()">
+    <div class="calendar disable-selection" id="calendar">
+        <div class="left-side">
+            <div class="current-day text-center">
+                <h1 class="calendar-left-side-day"></h1>
+                <div class="calendar-left-side-day-of-week"></div>
+            </div>
+            <div class="current-day-events">
+                <div>Current Events:</div>
+                <ul class="current-day-events-list"></ul>
+            </div>
+            <div class="add-event-day">
+                <input type="text" class="add-event-day-field" placeholder="Create an Event">
+                <span class="fa fa-plus-circle cursor-pointer add-event-day-field-btn"></span>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="text-right calendar-change-year">
+                <div class="calendar-change-year-slider">
+                    <span class="fa fa-caret-left cursor-pointer calendar-change-year-slider-prev"></span>
+                    <span class="calendar-current-year"></span>
+                    <span class="fa fa-caret-right cursor-pointer calendar-change-year-slider-next"></span>
+                </div>
+            </div>
+            <div class="calendar-month-list">
+                <ul class="calendar-month"></ul>
+            </div>
+            <div class="calendar-week-list">
+                <ul class="calendar-week"></ul>
+            </div>
+            <div class="calendar-day-list">
+                <ul class="calendar-days"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script async src="all.js"></script>
+</body>
+
+</html>
